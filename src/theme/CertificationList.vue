@@ -68,6 +68,8 @@
     },
     computed: {
       ...mapGetters(['type', 'certifications']),
+      /* Filter computed method that receives the findCert and filterblacklist values and
+       * return a new filtered certifications list. */
       filteredCertifications () {
         let filter = new RegExp(this.findCert, 'i')
         let newCert = this.filterblack
@@ -90,8 +92,8 @@
       updateCertifications (type) {
         this.certifications = this[type]
       },
+      /* Fetch the certifications from the server by its type */
       loadCertifications () {
-        /* Fetch the certifications from the server by its type */
         let type = this.$route.params.id
         this.$store.dispatch('setType', type)
         this.selected = {}
@@ -103,10 +105,9 @@
       setBlackList () {
         this.$store.dispatch('setBlackList', { id: this.selected._id, updates: {blacklisted: !this.selected.blacklisted} })
       },
+      /* Compare the selected object with the stored one
+       * and unselect if is equal */
       selectCert (cert) {
-        /* Compare the selected object with the stored one
-        * and Unselect if is equal */
-
         if (JSON.stringify(this.selected) === JSON.stringify(cert)) {
           this.selected = {}
         } else {

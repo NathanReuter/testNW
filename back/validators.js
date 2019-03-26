@@ -25,8 +25,8 @@ const validator = {
       return true
     } else { return false }
   },
+  /* Receives and CNPJ and return true if its valid*/
   validateCNPJ (cnpj) {
-
     cnpj = cnpj.replace(/[^\d]+/g,'');
 
     if(cnpj == '') return false;
@@ -80,6 +80,15 @@ const validator = {
       return false;
 
     return true;
+  },
+  /* Choose the correct validator by the certification type
+   * and return the called result */
+  validateCertification(certification, type) {
+    if (type === 'cpf') {
+      return this.validateCPF(certification)
+    } else {
+      return this.validateCNPJ(certification)
+    }
   }
 }
 

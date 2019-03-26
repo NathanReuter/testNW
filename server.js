@@ -5,7 +5,6 @@ const path = require('path')
 const serialize = require('serialize-javascript')
 const { createBundleRenderer } = require('vue-server-renderer')
 const isProd = typeof process.env.NODE_ENV !== 'undefined' && (process.env.NODE_ENV === 'production')
-const router = require('express').Router()
 let renderer
 
 const indexHTML = (() => {
@@ -27,7 +26,7 @@ if (isProd) {
   })
 }
 /* Load backend server routes */
-require('./back')(app)
+require('./back')(app, isProd)
 
 app.get('*', (req, res) => {
   console.log('req', req.url)

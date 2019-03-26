@@ -1,3 +1,5 @@
+/* Router for /certifications */
+
 const controller = require('./certificationController')
 let route = '/certifications'
 

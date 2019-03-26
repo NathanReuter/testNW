@@ -1,6 +1,10 @@
+/* Certifications controller */
+
 const Certification = require('./certificationsModel')
 const _ = require('lodash')
 
+/* If the route has an id, this middleware puts the current certification(if it exists)
+*  in the req */
 exports.params = function (req, res, next, id) {
   Certification.findById(id)
     .then(cert => {
@@ -15,6 +19,7 @@ exports.params = function (req, res, next, id) {
     })
 }
 
+/* Get type and respond with the certifications */
 exports.get = (req, res, next) => {
   const type = req.query.type
   const availableTypes = Certification.schema.obj.type.enum
@@ -31,11 +36,13 @@ exports.get = (req, res, next) => {
     })
 }
 
+/* Get one certification */
 exports.getOne = (req, res) => {
   let cert = req.cert
   res.json(cert)
 }
 
+/* Create certification (validation is in the model) */
 exports.post = function (req, res, next) {
   let newcert = req.body
 
@@ -48,6 +55,7 @@ exports.post = function (req, res, next) {
     })
 }
 
+/* Update certification by id only */
 exports.put = function (req, res, next) {
   let cert = req.cert
   let update = req.body
@@ -63,6 +71,7 @@ exports.put = function (req, res, next) {
   })
 }
 
+/* Delete Certification by id only */
 exports.delete = function (req, res, next) {
   req.cert.remove(function (err, removed) {
     if (err) {

@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  /* Reusable dropdown component that receives a list of 'items' as a props.
+   * Each item have a value and a action that can be triggered when clicked */
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faSort } from '@fortawesome/free-solid-svg-icons'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'

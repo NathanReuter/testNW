@@ -20,10 +20,12 @@ const store = new Vuex.Store({
     certifications: state => state.certifications
   },
   actions: {
+    /* @param {string} type */
     setType (context, type) {
       context.commit('setType', type)
     },
-    /* Action that load all the certifications by its type, using the appService.
+    /* @param {string} type
+     * Action that load all the certifications by its type, using the appService.
      * If is a success, the loadCertification event is called to update the certification value
      * The return is a promise */
     loadCertifications (context, type) {
@@ -31,7 +33,8 @@ const store = new Vuex.Store({
         context.commit('loadCertifications', { certifications: data, type: type })
       })
     },
-    /* Action that add a certification by first checking if the certification in params is valid.
+    /* @param {object} certification
+     * Action that add a certification by first checking if the certification in params is valid.
      * Than if is valid, it uses the appService to create the certification in server,
      * if it is a success(valid in the server too and store properly in the bank)
      * the addCertification event is called
@@ -50,6 +53,9 @@ const store = new Vuex.Store({
         })
       })
     },
+    /* @param {string} id
+    *  Action that receives an id, and call appService do remove the certification from server.
+    *  If it is a success, the removeCertification event is callled */
     removeCertification (context, id) {
       return appService.removeCertifications(id)
         .then(data => {
@@ -59,6 +65,9 @@ const store = new Vuex.Store({
           window.alert(err)
         })
     },
+    /* @param {object} certification
+     * Action that receives a certification object with the desired 'blacklisted' value of the certification.
+     * The values are passed to the appService and if it is a success, then setBlackList is called */
     setBlackList (context, certification) {
       return appService.updateCertifications(certification.id, certification.updates)
         .then(data => {
@@ -67,21 +76,28 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    /* @param {string} type */
     setType (state, type) {
       if (['cpf', 'cnpj'].includes(type)) {
         state.type = type
       }
     },
+    /* @param {object} data */
     loadCertifications (state, data) {
       state.certifications = data.certifications
     },
+    /* @param {object} certification */
     addCertification (state, certification) {
       state.certifications.push(certification)
     },
+    /* @params {object} certification
+     * Remove the certification by filtering all but the one that match the params id */
     removeCertification (state, certification) {
       state.certifications = state.certifications
         .filter(cert => cert._id !== certification._id)
     },
+    /* @params {object} certification
+     * Sets the current certification with the blacklisted value */
     setBlackList (state, certification) {
       state.certifications = state.certifications
         .map(cert => {

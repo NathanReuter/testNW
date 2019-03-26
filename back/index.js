@@ -1,23 +1,20 @@
-let route = '/api'
-let config = {
-  seed: true,
-  db: {
-    url: 'mongodb://localhost/certvalidator'
+/* Main file for the api server */
+
+const backEndServer = (app, isProd) => {
+  let route = '/api'
+  const config = require('./config')(isProd)
+  const bodyParser = require('body-parser')
+
+  if (config.seed) {
+    require('./util/seeds')
   }
-}
-const bodyParser = require('body-parser')
+  /* Connect to mongo with mongoose */
+  require('mongoose').connect(config.db.url)
 
-require('mongoose').connect(config.db.url)
-
-if (config.seed) {
-  require('./util/seeds')
-}
-
-const backEndServer = (app) => {
+  /* Initialize reqcount */
   app.reqcount = 0
-
-  /* Setup req counter */
   app.use((req, res, next) => {
+    /* Setup req counter */
     app.reqcount++
     next()
   })
@@ -25,6 +22,7 @@ const backEndServer = (app) => {
   /* Add body parser middleware */
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
+
   /* Load routes, in this case without express router */
   require('./api/certifications')(app, route)
   require('./api/status')(app, route)

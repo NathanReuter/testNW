@@ -2,7 +2,8 @@
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
-        Some 'beautiful' footer
+        Todos os direitos <span class="line-through">não</span> reservados <br>
+        <span class="easter-is-coming">Desenvolvido por Nathan Reuter Godinho</span>
       </div>
     </div>
   </footer>
@@ -10,6 +11,12 @@
 <style lang="scss">
   @import "../style/globals";
 
+  .line-through {
+    text-decoration: line-through;
+  }
+  .easter-is-coming {
+    color: $secondary;
+  }
   footer {
     border-top: 5px solid $primary;
     color: white;

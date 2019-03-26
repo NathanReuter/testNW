@@ -1,3 +1,5 @@
+/* Certification Model */
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const validator = require('../../validators')
@@ -21,10 +23,9 @@ let CertificationsSchema = new Schema({
   }
 })
 
+/* Pre save function that validates the certification by its type before adding it to the database */
 CertificationsSchema.pre('save', function (next) {
-  const validationMethod = this.type === 'cpf' ? validator.validateCPF : validator.validateCNPJ
-
-  if (!validationMethod(this.value)) {
+  if (!validator.validateCertification(this.value, this.type)) {
     next(new Error(this.type.concat(' is Invalid')))
   }
   next()
