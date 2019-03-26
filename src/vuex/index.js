@@ -1,3 +1,6 @@
+/* The certification store implementation, it its constructed here in the index
+* by simplicity, as the app grows, is preferable to use modules. */
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Validator from '../validators'
@@ -20,14 +23,20 @@ const store = new Vuex.Store({
     setType (context, type) {
       context.commit('setType', type)
     },
+    /* Action that load all the certifications by its type, using the appService.
+     * If is a success, the loadCertification event is called to update the certification value
+     * The return is a promise */
     loadCertifications (context, type) {
       return appService.getCertifications(type).then(data => {
         context.commit('loadCertifications', { certifications: data, type: type })
       })
     },
+    /* Action that add a certification by first checking if the certification in params is valid.
+     * Than if is valid, it uses the appService to create the certification in server,
+     * if it is a success(valid in the server too and store properly in the bank)
+     * the addCertification event is called
+     * The return is a promise */
     addCertification (context, certification) {
-      /* Check if certification pattern is correct by its type and also check if it
-      * doesn't exists before adding to the server */
       return new Promise((resolve, reject) => {
         if (!Validator.validateCertification(certification.value, certification.type) ||
           state.certifications.find(cert => cert.value === certification.value)) {

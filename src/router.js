@@ -1,3 +1,6 @@
+/* Main app router that map all the routers to the its specific component */
+/* -> Lazy load is not used here as a design choice */
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Status from './theme/Status.vue'

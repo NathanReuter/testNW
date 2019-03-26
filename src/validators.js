@@ -1,5 +1,8 @@
 /* eslint-disable */
+
+/* Validator Obj that has methods to validate CPF and CPNJ */
 const validator = {
+  /* Receives and CPF and return true if its valid*/
   validateCPF (cpf) {
     var numeros, digitos, soma, i, resultado, digitos_iguais
     digitos_iguais = 1
@@ -25,6 +28,7 @@ const validator = {
       return true
     } else { return false }
   },
+  /* Receives and CNPJ and return true if its valid*/
   validateCNPJ (cnpj) {
     cnpj = cnpj.replace(/[^\d]+/g,'');
 
@@ -80,6 +84,8 @@ const validator = {
 
     return true;
   },
+  /* Choose the correct validator by the certification type
+   * and return the called result */
   validateCertification(certification, type) {
     if (type === 'cpf') {
       return this.validateCPF(certification)

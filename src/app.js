@@ -1,3 +1,5 @@
+/* Main app file, where all the structure files and components are instantiated */
+
 import Vue from 'vue'
 import store from './vuex/index.js'
 import AppLayout from './theme/Layout.vue'
