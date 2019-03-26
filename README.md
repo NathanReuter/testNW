@@ -44,7 +44,7 @@ const state = {
   certifications: []
 }
 ```
-For the styling the chosen framework is _ [Bulma](https://bulma.io/) _ because its lighter then the others frameworks
+For the styling the chosen framework is [Bulma](https://bulma.io/) because its lighter then the others frameworks
 
 
 
