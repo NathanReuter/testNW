@@ -17,7 +17,7 @@ describe('Validator.js', () => {
     expect(Validator.validateCNPJ(testCNPJ)).to.be.equal(true)
   })
 
-  it('should invalidate the incorrect CPF', () => {
+  it('should invalidate the incorrect CNPJ', () => {
     const testCNPJ = '666695270009877'
     expect(Validator.validateCNPJ(testCNPJ)).to.be.equal(false)
   })
