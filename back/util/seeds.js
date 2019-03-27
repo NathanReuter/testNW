@@ -86,7 +86,7 @@ const createDoc = (model, doc) => {
   })
 }
 
-var createCertifications = data => {
+const createCertifications = data => {
   let promises = certs.map(cert => {
     return createDoc(Certification, cert)
   })
